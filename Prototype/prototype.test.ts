@@ -1,4 +1,10 @@
-// Pruebas Jest
+// Pruebas Jest para el patrón Prototype
+import { ConcretePrototype } from './ConcretePrototype';
+import { ComplexObject } from './ComplexObject';    
+import { IPrototype } from './IPrototype';
+import { jest } from '@jest/globals';
+import { describe, test, expect } from '@jest/globals';
+
 describe('Patrón Prototype', () => {
     test('Debe clonar un objeto correctamente', () => {
       // Arrange

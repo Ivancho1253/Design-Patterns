@@ -1,5 +1,8 @@
+import { ComplexObject } from "./ComplexObject";
+import { IPrototype } from "./IPrototype";
+
 // Clase concreta que implementa la interfaz Prototype
-class ConcretePrototype implements Prototype {
+export class ConcretePrototype implements IPrototype {
     private id: number;
     private name: string;
     private complexObject: ComplexObject;
@@ -11,7 +14,7 @@ class ConcretePrototype implements Prototype {
     }
   
     // Método para clonar la instancia actual
-    clone(): Prototype {
+    clone(): IPrototype {
       // Creamos una copia profunda del objeto complejo
       const clonedComplexObject = this.complexObject.clone();
       

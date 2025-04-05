@@ -1,5 +1,7 @@
+import { IPrototype } from "./IPrototype";
+
 //Clase que representa un objeto complejo que también implementa Prototype
-class ComplexObject implements Prototype {
+export class ComplexObject implements IPrototype {
   private data: string[];
 
   constructor(data: string[]) {
