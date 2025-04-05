@@ -7,6 +7,13 @@ describe('Patrón Mediator (ChatRoom)', () => {
     const user2 = new User('Rodrigo', chatRoom);
 
     user1.send('Tanto tiempo Rodrigo');
+    expect(chatRoom.messages).toContain('[Ramiro] dice: Tanto tiempo Rodrigo');
+
+    user2.send('Cuando un lol pa?');
+    expect(chatRoom.messages).toContain('[Rodrigo] dice: Cuando un lol pa?');
+
+
+
 
   });
 });

@@ -1,11 +1,12 @@
-// Mediador
 export class ChatRoom {
+    public messages: string[] = []; 
+  
     sendMessage(message: string, user: User) {
-      console.log(`[${user.name}] dice: ${message}`);
+      const formatted = `[${user.name}] dice: ${message}`;
+      this.messages.push(formatted); //guardamos el mensaje
     }
   }
   
-  // Usuario (Colaborador)
   export class User {
     constructor(public name: string, private chatRoom: ChatRoom) {}
   
