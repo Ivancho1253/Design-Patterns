@@ -1,34 +1,25 @@
-// Visitor/__tests__/visitor.test.ts
+import { Circulo } from './Circulo';
+import { Cuadrado } from './Cuadrado';
+import { IFiguraVisitor } from './IFiguraVisitor';
 
-import { Circle } from '../Visitor/Circle';
-import { Rectangle } from '../Visitor/Rectangle';
-import { AreaCalculator } from '../Visitor/AreaCalculator';
-import { Visitor } from '../Visitor/IVisitor';
+describe('Patrón Visitor', () => {
+  test('debería llamar a los métodos correctos del visitor', () => {
 
-describe('AreaCalculator', () => {
-  let consoleSpy: jest.SpyInstance;
-  let calculator: Visitor;
+    // Creamos un visitante falso con jest.fn()
+    const mockVisitor: IFiguraVisitor = {
+      visitarCirculo: jest.fn(),
+      visitarCuadrado: jest.fn(),
+    };
 
-  beforeEach(() => {
-    consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
-    calculator = new AreaCalculator();
-  });
+    const circulo = new Circulo();
+    const cuadrado = new Cuadrado();
 
-  afterEach(() => {
-    consoleSpy.mockRestore();
-  });
+    // Ejecutamos aceptar, que debe llamar al visitante correspondiente
+    circulo.aceptar(mockVisitor);
+    cuadrado.aceptar(mockVisitor);
 
-  test('debería calcular correctamente el área de un círculo', () => {
-    const circle = new Circle(5);
-    circle.accept(calculator);
-
-    expect(consoleSpy).toHaveBeenCalledWith('Área del círculo: 78.54');
-  });
-
-  test('debería calcular correctamente el área de un rectángulo', () => {
-    const rect = new Rectangle(4, 6);
-    rect.accept(calculator);
-
-    expect(consoleSpy).toHaveBeenCalledWith('Área del rectángulo: 24.00');
+    // Verificamos que los métodos correctos fueron llamados
+    expect(mockVisitor.visitarCirculo).toHaveBeenCalledWith(circulo);
+    expect(mockVisitor.visitarCuadrado).toHaveBeenCalledWith(cuadrado);
   });
 });
