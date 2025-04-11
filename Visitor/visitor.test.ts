@@ -11,6 +11,7 @@ describe('Patrón Visitor', () => {
       visitarCuadrado: jest.fn(),
     };
 
+    //Creamos las figuras/objetos.
     const circulo = new Circulo();
     const cuadrado = new Cuadrado();
 
