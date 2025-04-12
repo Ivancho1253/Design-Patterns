@@ -5,12 +5,15 @@ import { Cuadrado } from './Cuadrado';
 // Clase que implementa 'IFiguraVisitor'.
 // Define cómo se dibuja un círculo o un cuadrado.
 
-export class DibujarVisitor implements IFiguraVisitor {
+export class DibujarFigura implements IFiguraVisitor {
+  
+  //Dibuje el circulo
   visitarCirculo(c: Circulo): void {
-    console.log('🟢 Dibujando un círculo');
+    console.log('Dibujando un círculo');
   }
 
+  //Dibuje el cuadrado
   visitarCuadrado(c: Cuadrado): void {
-    console.log('🟦 Dibujando un cuadrado');
+    console.log('Dibujando un cuadrado');
   }
 }
