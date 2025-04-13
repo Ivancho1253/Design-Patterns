@@ -1,4 +1,5 @@
-import { ChatRoom, User } from './mediator';
+import { ChatRoom } from './mediator';
+import { User } from './User';
 
 describe('Patrón Mediator (ChatRoom)', () => {
   it('debería enviar un mensaje a través del mediador', () => {

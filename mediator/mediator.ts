@@ -1,3 +1,4 @@
+import { User } from './User';
 export class ChatRoom {
     public messages: string[] = []; 
   
@@ -7,11 +8,4 @@ export class ChatRoom {
     }
   }
   
-  export class User {
-    constructor(public name: string, private chatRoom: ChatRoom) {}
-  
-    send(message: string) {
-      this.chatRoom.sendMessage(message, this);
-    }
-  }
   
