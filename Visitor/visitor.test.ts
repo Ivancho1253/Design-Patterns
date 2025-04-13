@@ -8,7 +8,7 @@ import { IFiguraVisitor } from './IFiguraVisitor';
 describe('Patrón Visitor', () => {
   test('debería llamar a los métodos correctos del visitor', () => {
 
-    // Creamos un visitante falso con jest.fn()
+    // Creamos un visitante falso con jest.fn(), para no tener que crear DibujarFigura
     const fakeVisitor: IFiguraVisitor = {
       visitarCirculo: jest.fn(),
       visitarCuadrado: jest.fn(),
