@@ -1,4 +1,5 @@
-import { CanalYouTube, Suscriptor } from './observer';
+import { CanalYouTube } from './CanalYoutube';
+import { Suscriptor } from './Suscriptor';
 
 describe('Patrón Observer - Canal de YouTube', () => {
   test('Debe notificar al suscriptor cuando se sube un video', () => {
