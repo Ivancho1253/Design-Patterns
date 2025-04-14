@@ -7,14 +7,14 @@ import { describe, test, expect } from '@jest/globals';
 
 describe('PrototypePattern', () => {
     test('Debe clonar un objeto correctamente', () => {
-      // Arrange
-      const complexObj = new ComplexObject(['dato1', 'dato2']);
-      const original = new ConcretePrototype(1, 'Original', complexObj);
+      // Arrange - Creamos el objeto original
+      const co1 = new ComplexObject(['dato1', 'dato2']);
+      const original = new ConcretePrototype(1, 'Original', co1);
       
-      // Act
+      // Act - Clonamos el objeto original
       const clon = original.clone() as ConcretePrototype;
       
-      // Assert
+      // Assert - Verificamos que el clon sea diferente al original
       expect(clon).not.toBe(original); // Verificar que son objetos diferentes
       expect(clon.getId()).toBe(original.getId()); // Pero con los mismos valores
       expect(clon.getName()).toBe(original.getName());
@@ -23,9 +23,9 @@ describe('PrototypePattern', () => {
     });
     
     test('Modificar el clon no debe afectar al original', () => {
-      // Arrange
-      const complexObj = new ComplexObject(['dato1', 'dato2']);
-      const original = new ConcretePrototype(1, 'Original', complexObj);
+      // Arrange - Creamos el objeto original
+      const co2 = new ComplexObject(['dato1', 'dato2']);
+      const original = new ConcretePrototype(1, 'Original', co2);
       const clon = original.clone() as ConcretePrototype;
       
       // Act - Modificamos el clon
@@ -43,14 +43,14 @@ describe('PrototypePattern', () => {
     });
     
     test('ComplexObject debe clonarse correctamente', () => {
-      // Arrange
+      // Arrange - Creamos el objeto original
       const original = new ComplexObject(['dato1', 'dato2']);
       
-      // Act
+      // Act - Clonamos el objeto original
       const clon = original.clone();
       clon.addData('dato3');
       
-      // Assert
+      // Assert - Verificamos que el original no se modificó
       expect(original.getData()).toEqual(['dato1', 'dato2']);
       expect(clon.getData()).toEqual(['dato1', 'dato2', 'dato3']);
     });
