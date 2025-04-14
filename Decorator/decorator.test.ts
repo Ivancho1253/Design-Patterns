@@ -1,27 +1,23 @@
-import { MensajeSimple, MensajeInterrogacion, MensajePregunta } from './decorator';
+import { Guerrero, CascoDecorador, ArmaduraDecorador } from './decorator';
 
-describe('Ejemplo de Patron de diseño Decorador', () => {
-  test('debe retornar el mensaje simple', () => {
-    const mensaje = new MensajeSimple("Hola");
-    expect(mensaje.getContent()).toBe("Hola");
+describe('Personaje con equipo usando Decorator', () => {
+  test('Guerrero simple', () => {
+    const warrior = new Guerrero();
+    expect(warrior.getDescription()).toBe("Guerrero");
   });
 
-  test('debe agregar signos de exclamación usando el decorador', () => {
-    const mensaje = new MensajeSimple("Hola");
-    const excitedMessage = new MensajeInterrogacion(mensaje);
-    expect(excitedMessage.getContent()).toBe("Hola!!!");
+  test('Guerrero con casco', () => {
+    const warriorWithHelmet = new CascoDecorador(new Guerrero());
+    expect(warriorWithHelmet.getDescription()).toBe("Guerrero con casco");
   });
 
-  test('debe agregar signos de interrogación usando el decorador', () => {
-    const mensaje = new MensajeSimple("Hola");
-    const questionMessage = new MensajePregunta(mensaje);
-    expect(questionMessage.getContent()).toBe("Hola???");
+  test('Guerrero con armadura', () => {
+    const warriorWithArmor = new ArmaduraDecorador(new Guerrero());
+    expect(warriorWithArmor.getDescription()).toBe("Guerrero con armadura");
   });
 
-  test('debe combinar múltiples decoradores', () => {
-    const mensaje = new MensajeSimple("Hola");
-    const excitedMessage = new MensajeInterrogacion(mensaje);
-    const combinedMessage = new MensajePregunta(excitedMessage);
-    expect(combinedMessage.getContent()).toBe("Hola!!!???");
+  test('Guerrero con casco y armadura', () => {
+    const fullEquipped = new ArmaduraDecorador(new CascoDecorador(new Guerrero()));
+    expect(fullEquipped.getDescription()).toBe("Guerrero con casco con armadura");
   });
 });

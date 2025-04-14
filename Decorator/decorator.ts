@@ -1,25 +1,31 @@
-export interface IMessage {
-    getContent(): string;
+export interface Character {
+  getDescription(): string;
+}
+
+export class Guerrero implements Character {
+  getDescription(): string {
+    return "Guerrero";
   }
-  
-  export class MensajeSimple implements IMessage {
-    constructor(private content: string) {}
-    getContent(): string {
-      return this.content;
-    }
+}
+
+export abstract class EquipamientoDecorador implements Character {
+  protected character: Character;
+
+  constructor(character: Character) {
+    this.character = character;
   }
 
-  export class MensajeInterrogacion implements IMessage {
-    constructor(private wrapped: IMessage) {}
-    getContent(): string {
-      return this.wrapped.getContent() + "!!!";
-    }
+  abstract getDescription(): string;
+}
+
+export class CascoDecorador extends EquipamientoDecorador {
+  getDescription(): string {
+    return this.character.getDescription() + " con casco";
   }
-  
-  export class MensajePregunta implements IMessage {
-    constructor(private wrapped: IMessage) {}
-    getContent(): string {
-      return this.wrapped.getContent() + "???";
-    }
+}
+
+export class ArmaduraDecorador extends EquipamientoDecorador {
+  getDescription(): string {
+    return this.character.getDescription() + " con armadura";
   }
-  
+}

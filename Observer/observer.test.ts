@@ -1,30 +1,45 @@
-import { Subject, Observer } from './observer';
+import { CanalYouTube, Suscriptor } from './observer';
 
-describe('Ejemplo de Patron de diseño Observer', () => {
-  test('debe notificar a los observadores suscritos', () => {
-    const subject = new Subject();
+describe('Patrón Observer - Canal de YouTube', () => {
+  test('Debe notificar al suscriptor cuando se sube un video', () => {
+    const canal = new CanalYouTube();
+    const juan = new Suscriptor("Juan");
 
-    const observer: Observer = {
-      update: jest.fn(),
-    };
+    juan.suscribirseACanal(canal);
+    canal.subirVideo("Curso de TypeScript");
 
-    subject.subscribe(observer);
-    subject.notify('Gracias por la sub wacho!');
-
-    expect(observer.update).toHaveBeenCalledWith('Gracias por la sub wacho!');
+    expect(juan.obtenerNotificacion()).toBe("Nuevo video: Curso de TypeScript");
   });
 
-  test('no debe notificar a los observadores desuscritos', () => {
-    const subject = new Subject();
+  test('No debe notificar al suscriptor si se desuscribió', () => {
+    const canal = new CanalYouTube();
+    const juan = new Suscriptor("Juan");
 
-    const observer: Observer = {
-      update: jest.fn(),
-    };
+    juan.suscribirseACanal(canal);
+    juan.desuscribirseDeCanal(canal);
+    canal.subirVideo("Video de prueba");
 
-    subject.subscribe(observer);
-    subject.unsubscribe(observer);
-    subject.notify('porque te desuscribiste wachin');
+    expect(juan.obtenerNotificacion()).toBe("");
+  });
 
-    expect(observer.update).not.toHaveBeenCalled();
+  test('Debe notificar solo a los suscriptores activos', () => {
+    const canal = new CanalYouTube();
+
+    const ivancho = new Suscriptor("Ivan");
+    const rodri = new Suscriptor("Rodri");
+    const augusto = new Suscriptor("Augusto");
+
+    // Todos se suscriben
+    ivancho.suscribirseACanal(canal);
+    rodri.suscribirseACanal(canal);
+    augusto.suscribirseACanal(canal);
+
+    ivancho.desuscribirseDeCanal(canal);
+
+    canal.subirVideo("Nuevo tutorial de programación");
+
+    expect(augusto.obtenerNotificacion()).toBe("Nuevo video: Nuevo tutorial de programación");
+    expect(rodri.obtenerNotificacion()).toBe("Nuevo video: Nuevo tutorial de programación");
+    expect(ivancho.obtenerNotificacion()).toBe(""); 
   });
 });
