@@ -5,7 +5,7 @@ import { IPrototype } from './IPrototype';
 import { jest } from '@jest/globals';
 import { describe, test, expect } from '@jest/globals';
 
-describe('Patrón Prototype', () => {
+describe('PrototypePattern', () => {
     test('Debe clonar un objeto correctamente', () => {
       // Arrange
       const complexObj = new ComplexObject(['dato1', 'dato2']);
