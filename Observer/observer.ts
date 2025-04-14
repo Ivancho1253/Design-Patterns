@@ -1,8 +1,36 @@
-export interface Observador {
+export interface IObserver {
   actualizar(mensaje: string): void;
 }
 
-export class Suscriptor implements Observador {
+export interface IObservable {
+  suscribir(observador: IObserver): void;
+  desuscribir(observador: IObserver): void;
+  notificar(mensaje: string): void;
+}
+
+export class CanalYouTube implements IObservable {
+  private suscriptores: IObserver[] = [];
+
+  suscribir(observador: IObserver): void {
+    this.suscriptores.push(observador);
+  }
+
+  desuscribir(observador: IObserver): void {
+    this.suscriptores = this.suscriptores.filter(sub => sub !== observador);
+  }
+
+  notificar(mensaje: string): void {
+    for (const suscriptor of this.suscriptores) {
+      suscriptor.actualizar(mensaje);
+    }
+  }
+
+  subirVideo(titulo: string): void {
+    this.notificar(`Nuevo video: ${titulo}`);
+  }
+}
+
+export class Suscriptor implements IObserver {
   private ultimoMensaje = "";
   public nombre: string;
 
@@ -18,31 +46,11 @@ export class Suscriptor implements Observador {
     return this.ultimoMensaje;
   }
 
-  suscribirseACanal(canal: CanalYouTube): void {
+  suscribirseACanal(canal: IObservable): void {
     canal.suscribir(this);
   }
 
-  desuscribirseDeCanal(canal: CanalYouTube): void {
+  desuscribirseDeCanal(canal: IObservable): void {
     canal.desuscribir(this);
-  }
-}
-
-export class CanalYouTube {
-  private suscriptores: Observador[] = [];
-
-  suscribir(observador: Observador): void {
-    this.suscriptores.push(observador);
-  }
-
-  desuscribir(observador: Observador): void {
-    this.suscriptores = this.suscriptores.filter(sub => sub !== observador);
-  }
-
-  notificar(mensaje: string): void {
-    this.suscriptores.forEach(sub => sub.actualizar(mensaje));
-  }
-
-  subirVideo(titulo: string): void {
-    this.notificar(`Nuevo video: ${titulo}`);
   }
 }
