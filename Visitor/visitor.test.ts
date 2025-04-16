@@ -1,6 +1,7 @@
 import { Circulo } from './Circulo';
 import { Cuadrado } from './Cuadrado';
 import { IFiguraVisitor } from './IFiguraVisitor';
+import { DibujarFigura } from './DibujarFigura';
 
 ///////////////////////////////////////////////////////////
 
@@ -8,7 +9,7 @@ import { IFiguraVisitor } from './IFiguraVisitor';
 describe('Patrón Visitor', () => {
   test('debería llamar a los métodos correctos del visitor', () => {
 
-    // Creamos un visitante falso con jest.fn(), para no tener que crear DibujarFigura
+    // Creamos un visitante falso con jest.fn()
     const fakeVisitor: IFiguraVisitor = {
       visitarCirculo: jest.fn(),
       visitarCuadrado: jest.fn(),
@@ -22,7 +23,7 @@ describe('Patrón Visitor', () => {
     circulo.aceptar(fakeVisitor);
     cuadrado.aceptar(fakeVisitor);
 
-    // Verificamos que los métodos correctos fueron llamados
+    // Verificamos que las figuras llamen correctamente a sus metodos del visitante
     expect(fakeVisitor.visitarCirculo).toHaveBeenCalledWith(circulo);
     expect(fakeVisitor.visitarCuadrado).toHaveBeenCalledWith(cuadrado);
     
